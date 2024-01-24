@@ -28,14 +28,17 @@ def extract_titrino_data():
     OUTPUT_PATH = os.path.join(DIRNAME, "Resultado das análises de titulação.txt")
 
     for file in files:
-        with open(file, 'r') as f:
-            lines = f.readlines()
-            for i, line in enumerate(lines):
-                if "Sample" in line:
-                    amostra = lines[i+1].split()[0]
-                if "Results" in line:
-                    valor = lines[i+2].split()[:4]
-        resultados.append(" ".join([amostra, valor[0], valor[1], valor[2], valor[3]]))
+        # print(file)
+        if not ".ini" in file:
+            # print(file)
+            with open(file, 'r', encoding="windows-1252") as f:
+                lines = f.readlines()
+                for i, line in enumerate(lines):
+                    if "Sample" in line:
+                        amostra = lines[i+1].split()[0]
+                    if "Results" in line:
+                        valor = lines[i+2].split()[:4]
+            resultados.append(" ".join([amostra, valor[0], valor[1], valor[2], valor[3]]))
     
     with open(OUTPUT_PATH, 'w') as f2:
         for resultado in resultados:
