@@ -25,12 +25,11 @@ def extract_titrino_data():
     resultados = []
 
     DIRNAME = os.path.dirname(os.path.dirname(files[0]))
-    OUTPUT_PATH = os.path.join(DIRNAME, "Resultado das análises de titulação.txt")
+    FOLDER = os.path.basename(os.path.dirname(files[0]))
+    OUTPUT_PATH = os.path.join(DIRNAME, f"Resultado da titulação - {FOLDER}.txt")
 
     for file in files:
-        # print(file)
         if not ".ini" in file:
-            # print(file)
             with open(file, 'r', encoding="windows-1252") as f:
                 lines = f.readlines()
                 for i, line in enumerate(lines):
@@ -45,7 +44,8 @@ def extract_titrino_data():
             f2.write(resultado)
             f2.write("\n")
     
-    ctk.CTkLabel(frame1, text=f"Done! Check output folder.", font=("Roboto", 14), text_color="white").pack(pady=5)
+    ctk.CTkLabel(frame1, text=f"Done! Check output folder.", font=("Roboto", 14),
+                 bg_color='black', fg_color="transparent").pack(pady=5)
 
     return None
 
@@ -58,21 +58,24 @@ app.geometry("400x200+10+10")
 app.resizable(width=True, height=True)
 
 # Title frame
-frame0 = ctk.CTkFrame(master=app, corner_radius=0, border_color=None, height=50, fg_color='transparent')
+frame0 = ctk.CTkFrame(master=app, corner_radius=0, border_color=None, height=50, bg_color='black', fg_color="transparent")
 frame0.pack(fill='both', expand=True)
 
 # App title
-welcome = ctk.CTkLabel(frame0, text="Titration analysis", font=("Roboto bold", 28), text_color="white")
+welcome = ctk.CTkLabel(frame0, text="Titration analysis", 
+                       font=("Roboto bold", 28), text_color='white', bg_color='black', fg_color="transparent")
 welcome.pack(padx=1, pady=5)
 
-welcome2 = ctk.CTkLabel(frame0, text="Get titration results of Metrohm Titrino 848", font=("Roboto", 14), text_color="white")
+welcome2 = ctk.CTkLabel(frame0, text="Get titration results of Metrohm Titrino 848", 
+                        font=("Roboto", 14), text_color='white', bg_color='black', fg_color="transparent")
 welcome2.pack(padx=1, pady=5)
 
 # Frame with descriptions
-frame1 = ctk.CTkFrame(master=app, corner_radius=0, border_color=None, fg_color='transparent')
+frame1 = ctk.CTkFrame(master=app, corner_radius=0, border_color=None, 
+                      bg_color='black', fg_color="transparent")
 frame1.pack(fill='both', expand=True)
 
-# Help button
+# Choose directory btn
 choose_dir = ctk.CTkButton(frame1, text="Choose a directory", 
                            fg_color="#E8DFF5", hover_color="#d4afb9", text_color="black", command=extract_titrino_data)
 choose_dir.pack()
